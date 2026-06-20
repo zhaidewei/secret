@@ -45,6 +45,16 @@ cd secret
 `_secret` into a directory on your `$fpath`. Make sure `~/.local/bin` is on
 your `PATH`.
 
+## Uninstall
+
+```sh
+./uninstall.sh
+```
+
+Removes both symlinks. Your stored secrets stay in the Keychain — `uninstall.sh`
+never touches them. To wipe those too, run `secret list` and `secret rm <name>`
+for each **before** uninstalling.
+
 ## Usage
 
 ```

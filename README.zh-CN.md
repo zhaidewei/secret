@@ -38,6 +38,15 @@ cd secret
 `install.sh` 把 `secret` 软链到 `~/.local/bin`，把 zsh 补全 `_secret` 软链到
 `$fpath` 里第一个可写目录。确保 `~/.local/bin` 在 `PATH` 上。
 
+## 卸载
+
+```sh
+./uninstall.sh
+```
+
+删掉两个软链。存进钥匙串的凭据不动——`uninstall.sh` 绝不碰它们。要一并清掉，
+先在卸载**之前**用 `secret list` 看一遍，再对每个 `secret rm <name>`。
+
 ## 用法
 
 ```
