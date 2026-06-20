@@ -31,6 +31,10 @@ command is awkward for this: it can't list *your* entries (they're buried among
 hundreds of system items), the commands are long, and a missing key returns a
 silent empty string that scripts happily pass downstream.
 
+And if you don't want to type *yet another* master password every time you
+fetch a secret — the way `pass` or 1Password make you — the Keychain is already
+unlocked by your macOS login, so there's no extra password at all.
+
 `secret` fixes exactly that gap: secrets live only in the Keychain, get injected
 into a command on demand (`$(secret get NAME)`) with no plaintext anywhere, and
 the tool is enumerable (`list`), consistently named, fail-loud, and tab-completed.

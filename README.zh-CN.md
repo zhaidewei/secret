@@ -26,6 +26,9 @@ ALIBABA_CLOUD_ACCESS_KEY_ID=$(secret get aliyun-main-access-key-id) aliyun ecs D
 macOS 本身有加密存储（钥匙串），但原生 `security` 命令用起来别扭：它列不出"自己的"
 条目（埋在几百条系统项里）、命令冗长，而且缺 key 时静默返回空串，脚本会照样往下传。
 
+还有一点：如果你不想每次取密码时还得再输*一个*主密码（`pass`、1Password 就是这样），
+钥匙串已经随 macOS 登录解锁了，根本不用再输任何密码。
+
 `secret` 正好补这个缺口：凭据只待在钥匙串里，用时按需注入命令（`$(secret get NAME)`），
 任何地方都没有明文；同时这个工具可枚举（`list`）、命名统一、fail-loud、带 Tab 补全。
 
