@@ -99,4 +99,23 @@ The two closest tools:
 In short: `secret` is not a password vault. It's a thin layer that turns the
 Keychain into a convenient credential source for scripts.
 
+## Who it's for
+
+A good fit if you:
+
+- work on **macOS** and want credentials to stay on this one machine;
+- frequently inject secrets into **CLIs, scripts, or agents** and want it clean
+  (`$(secret get NAME)`), enumerable, consistently named, and tab-completed;
+- don't want to type a master password every time.
+
+Look elsewhere if you need:
+
+- **cross-device sync or team sharing** → 1Password, Bitwarden, Vault;
+- **cross-platform** (Linux / Windows) → `pass`, Vault;
+- **audit logs / compliance / rotation policies** → Vault, AWS/GCP Secret Manager;
+- **shared production secret management** for a team or services → Vault.
+
+`secret` deliberately has none of those — that's the trade for zero dependencies
+and zero master password.
+
 Storage: `~/Library/Keychains/login.keychain-db`, unlocked at macOS login.

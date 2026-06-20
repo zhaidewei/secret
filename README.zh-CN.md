@@ -87,4 +87,22 @@ pbpaste | secret add databricks-dev-token "Databricks dev workspace PAT"
 
 一句话：`secret` 不是密码库，是"把 Keychain 变成顺手的脚本凭据源"的薄封装。
 
+## 适合谁 / 不适合谁
+
+适合你，如果你：
+
+- 在 **macOS** 上开发，凭据只在这一台机器上用；
+- 经常给 **CLI、脚本、agent** 注入凭据，想要干净（`$(secret get NAME)`）、可枚举、
+  命名统一、带 Tab 补全；
+- 不想每次都输主密码。
+
+去找别的工具，如果你需要：
+
+- **跨设备同步 / 团队分享** → 1Password、Bitwarden、Vault；
+- **跨平台**（Linux / Windows） → `pass`、Vault；
+- **审计日志 / 合规 / 轮换策略** → Vault、AWS/GCP Secret Manager；
+- 团队或服务的**共享生产密钥管理** → Vault。
+
+`secret` 故意都不做这些——这是换取零依赖、零主密码的代价。
+
 存储位置：`~/Library/Keychains/login.keychain-db`，macOS 登录后自动解锁。
