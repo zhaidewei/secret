@@ -13,6 +13,20 @@ ALIBABA_CLOUD_ACCESS_KEY_ID=$(secret get aliyun-main-access-key-id) aliyun ecs D
 `get` 在条目缺失 / 为空 / 钥匙串被锁时会大声失败（exit 1，报错到 stderr），而不是
 返回空字符串——给脚本和 agent 用更安全。
 
+## 要解决的问题
+
+给 CLI 和 agent 用的凭据，通常会落在容易泄漏的地方：
+
+- **`.env` / `.envrc`** —— 明文落盘，离 `git add .` 一步之遥，一旦提交就永久进历史。
+- **`export VAR=...`** —— 进 shell history，且任何进程都能通过 `ps -E` 看到。
+- **硬编码进源码** —— 随仓库到处跑，出现在 diff 和日志里。
+
+macOS 本身有加密存储（钥匙串），但原生 `security` 命令用起来别扭：它列不出"自己的"
+条目（埋在几百条系统项里）、命令冗长，而且缺 key 时静默返回空串，脚本会照样往下传。
+
+`secret` 正好补这个缺口：凭据只待在钥匙串里，用时按需注入命令（`$(secret get NAME)`），
+任何地方都没有明文；同时这个工具可枚举（`list`）、命名统一、fail-loud、带 Tab 补全。
+
 ## 安装
 
 ```sh

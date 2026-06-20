@@ -14,6 +14,25 @@ ALIBABA_CLOUD_ACCESS_KEY_ID=$(secret get aliyun-main-access-key-id) aliyun ecs D
 `get` fails loudly (exit 1, message to stderr) on a missing/empty/locked
 entry instead of returning an empty string — safe for scripts and agents.
 
+## The problem
+
+Secrets for CLIs and agents usually end up somewhere they leak from:
+
+- **`.env` / `.envrc`** — plaintext on disk, one `git add .` away from being
+  committed and pushed forever.
+- **`export VAR=...`** — lands in shell history and is visible to any process
+  via `ps -E` / `/proc`.
+- **Hardcoded in source** — travels with the repo, shows up in diffs and logs.
+
+macOS already has an encrypted store (the Keychain), but the raw `security`
+command is awkward for this: it can't list *your* entries (they're buried among
+hundreds of system items), the commands are long, and a missing key returns a
+silent empty string that scripts happily pass downstream.
+
+`secret` fixes exactly that gap: secrets live only in the Keychain, get injected
+into a command on demand (`$(secret get NAME)`) with no plaintext anywhere, and
+the tool is enumerable (`list`), consistently named, fail-loud, and tab-completed.
+
 ## Install
 
 ```sh
