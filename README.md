@@ -1,5 +1,7 @@
 # secret
 
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) · [中文文档](README.zh-CN.md)
+
 macOS Keychain wrapper for agent-managed secrets. Stores API keys / tokens /
 passwords in the login keychain under a fixed account field (`agent-secrets`)
 so they can be listed and injected into commands without ever touching
@@ -33,6 +35,7 @@ secret get <name>             Print value to stdout (no trailing newline)
 secret add <name> [desc]      Add new secret (hidden tty prompt, or stdin)
 secret update <name> [desc]   Replace value; desc omitted => keep existing
 secret rm <name>              Delete a secret
+secret --version              Print version
 ```
 
 Naming convention: `<vendor>-<env>-<type>`, e.g. `aliyun-main-access-key-id`.
@@ -49,5 +52,32 @@ After install, `secret get <Tab>` completes key names — unique prefix fills
 in directly, otherwise an arrow-navigable menu appears. Requires
 `menu select` (oh-my-zsh enables it by default; otherwise add
 `zstyle ':completion:*' menu select` to `.zshrc`).
+
+## How it compares
+
+| Tool | Backend | Master password | Extra deps | Sync / sharing | Best for |
+|---|---|---|---|---|---|
+| **secret** | macOS Keychain | none (login unlock) | none (built-in `security`) | none | single machine, injecting creds into CLI/agents |
+| `security` (raw) | macOS Keychain | none | none | iCloud Keychain | people who want no wrapper |
+| `pass` | GPG-encrypted files | GPG passphrase | gpg + git | self-hosted git | cross-platform CLI users |
+| 1Password `op` | 1Password cloud | account password | op binary + subscription | cloud sync + team sharing | teams / multi-device |
+| `.env` / env vars | plaintext file | none | none | manual | not recommended — leaks with the repo |
+| HashiCorp Vault | server | token / policy | vault server | centralized + audit | production infrastructure |
+
+The two closest tools:
+
+- **vs raw `security`** (same Keychain): `secret` adds `list` (a fixed account
+  field filters *your* entries out of the hundreds of system keychain items),
+  fail-loud `get`, a `<vendor>-<env>-<type>` naming convention, and zsh
+  completion. Raw `security find-generic-password` can't enumerate and returns
+  a silent empty string on a missing key.
+- **vs `pass` / 1Password**: they give sync, sharing, audit, and cross-platform
+  support — at the cost of a new crypto system (GPG) or a binary + subscription,
+  plus a master-password unlock every time. `secret` goes the other way: reuse
+  the macOS login session, zero master password, zero new dependencies — in
+  exchange for being macOS-only with no sync/sharing/audit.
+
+In short: `secret` is not a password vault. It's a thin layer that turns the
+Keychain into a convenient credential source for scripts.
 
 Storage: `~/Library/Keychains/login.keychain-db`, unlocked at macOS login.
