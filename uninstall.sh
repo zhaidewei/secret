@@ -20,4 +20,9 @@ for d in $(zsh -c 'print -l $fpath' 2>/dev/null); do
 done
 [[ $found -eq 0 ]] && echo "No _secret completion found on \$fpath"
 
+bashcomp="${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions/secret"
+if [[ -e "$bashcomp" || -L "$bashcomp" ]]; then
+  rm -f "$bashcomp"; echo "Removed $bashcomp"
+fi
+
 echo "Done. Stored secrets remain in the Keychain."

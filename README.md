@@ -1,6 +1,8 @@
 # secret
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) · [中文文档](README.zh-CN.md)
+> An **AI-friendly, lightweight, free, macOS-only** secret manager.
+
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) ![platform](https://img.shields.io/badge/platform-macOS-lightgrey) · [中文文档](README.zh-CN.md)
 
 macOS Keychain wrapper for agent-managed secrets. Stores API keys / tokens /
 passwords in the login keychain under a fixed account field (`agent-secrets`)
@@ -75,12 +77,15 @@ Add from a pipe (value never appears as a literal in history):
 pbpaste | secret add databricks-dev-token "Databricks dev workspace PAT"
 ```
 
-## Tab completion (zsh)
+## Tab completion
 
-After install, `secret get <Tab>` completes key names — unique prefix fills
-in directly, otherwise an arrow-navigable menu appears. Requires
-`menu select` (oh-my-zsh enables it by default; otherwise add
-`zstyle ':completion:*' menu select` to `.zshrc`).
+After install, `secret get <Tab>` completes key names from `secret list`.
+
+- **zsh** — unique prefix fills in directly, otherwise an arrow-navigable menu
+  appears. Requires `menu select` (oh-my-zsh enables it by default; otherwise
+  add `zstyle ':completion:*' menu select` to `.zshrc`).
+- **bash** — completes the same names; Tab cycles, double-Tab lists candidates
+  (no arrow menu — that's a zsh feature). Needs the `bash-completion` package.
 
 ## How it compares
 

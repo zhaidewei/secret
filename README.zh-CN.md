@@ -1,6 +1,8 @@
 # secret
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) · [English](README.md)
+> **AI 友好、轻量、免费、仅 macOS** 的凭据管理工具。
+
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![license](https://img.shields.io/badge/license-MIT-green) ![platform](https://img.shields.io/badge/platform-macOS-lightgrey) · [English](README.md)
 
 macOS 钥匙串（Keychain）的薄封装，给 agent / 脚本管理凭据。把 API key、token、
 密码存进登录钥匙串，用固定的 account 字段（`agent-secrets`）标记，从而能枚举出
@@ -67,11 +69,14 @@ secret --version              打印版本
 pbpaste | secret add databricks-dev-token "Databricks dev workspace PAT"
 ```
 
-## Tab 补全（zsh）
+## Tab 补全
 
-装好后 `secret get <Tab>` 会补全 key 名：前缀唯一直接补上，否则弹出可用方向键
-选择的菜单。依赖 `menu select`（oh-my-zsh 默认开启；否则在 `.zshrc` 加
-`zstyle ':completion:*' menu select`）。
+装好后 `secret get <Tab>` 会从 `secret list` 补全 key 名。
+
+- **zsh** —— 前缀唯一直接补上，否则弹出可用方向键选择的菜单。依赖 `menu select`
+  （oh-my-zsh 默认开启；否则在 `.zshrc` 加 `zstyle ':completion:*' menu select`）。
+- **bash** —— 同样补全 key 名；Tab 循环、双 Tab 列出候选（没有方向键菜单，那是 zsh
+  的特性）。需要 `bash-completion` 包。
 
 ## 和其他密码工具的差异
 
