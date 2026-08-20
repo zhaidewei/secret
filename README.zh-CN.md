@@ -35,7 +35,7 @@ macOS 本身有加密存储（钥匙串），但原生 `security` 命令用起�
 ## 安装
 
 ```sh
-git clone git@github-personal:zhaidewei/secret.git
+git clone https://github.com/zhaidewei/secret.git
 cd secret
 ./install.sh
 ```
