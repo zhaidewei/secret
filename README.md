@@ -42,7 +42,7 @@ the tool is enumerable (`list`), consistently named, fail-loud, and tab-complete
 ## Install
 
 ```sh
-git clone git@github-personal:zhaidewei/secret.git
+git clone https://github.com/zhaidewei/secret.git
 cd secret
 ./install.sh
 ```
